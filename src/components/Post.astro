@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+	blog: CollectionEntry<"blogs">;
+};
+
+const { blog } = Astro.props;
+---
+
+<article
+	class="flex w-full items-center justify-between transition-opacity duration-150 ease-in-out group-hover:opacity-45 hover:opacity-100"
+>
+	<a
+		href={`/blogs/${blog.slug}`}
+		class="text-muted inline-block text-pretty"
+	>
+		<h2 class="max-sm:text-sm">{blog.data.title}</h2>
+	</a>
+	<p class="text-muted text-sm">{blog.data.date}</p>
+</article>

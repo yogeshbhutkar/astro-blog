@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+	font-family: "Outfit", sans-serif;
+	src: url("/fonts/outfit.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@theme {
+	/* Base Colors */
+	--color-background: #ffffff;
+	--color-foreground: #050505;
+	--color-muted: #0a0a0a;
+}
+
+@layer theme {
+	.dark {
+		/* Base Colors */
+		--color-background: #050505;
+		--color-foreground: #fafafa;
+		--color-muted: #cacaca;
+	}
+}
+
+body {
+	font-family: "Outfit", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Inter", sans-serif;
+}

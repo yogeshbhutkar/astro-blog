@@ -1,0 +1,76 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
+import { slide } from "astro:transitions";
+
+export const getStaticPaths = async () => {
+	const blogs = await getCollection("blogs");
+	return blogs.map((blog) => {
+		return {
+			params: {
+				slug: blog.slug,
+			},
+			props: { blog },
+		};
+	});
+};
+
+type Props = {
+	blog: CollectionEntry<"blogs">;
+};
+
+const { blog } = Astro.props;
+const { Content } = await blog.render();
+
+const totalTimeToRead = Math.ceil(blog.body.split(" ").length / 200);
+const totalTimeToSkim = Math.ceil(blog.body.split(" ").length / 500);
+---
+
+<Layout title={blog.data.title}>
+	<main transition:animate={slide({ duration: "0.4s" })} class="mx-auto">
+		<div class="flex w-full justify-center">
+			<Image
+				src={blog.data.image}
+				width={1024}
+				height={600 / 1.5}
+				alt={blog.data.title}
+				class="mb-4 aspect-[4/2] w-5xl max-w-full rounded-sm object-cover shadow-xl max-sm:w-sm"
+			/>
+		</div>
+		<div
+			class="mx-auto my-3 max-sm:px-4 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
+		>
+			<h1
+				class="text-center text-xl font-semibold md:text-3xl lg:text-4xl"
+			>
+				{blog.data.title}
+			</h1>
+			<div
+				class="text-muted/75 mt-1 flex flex-wrap justify-center space-x-2 text-sm"
+			>
+				<span>
+					Published on {blog.data.date}
+				</span>
+				<span class="text-muted/30">&#124;</span>
+				<span>
+					{totalTimeToSkim} min read ({totalTimeToRead} min read total)
+				</span>
+			</div>
+			<div class="mt-2 flex flex-wrap justify-center gap-2">
+				{
+					blog.data.categories.map((category) => (
+						<span class="text-muted/50 border-muted/20 hover:bg-muted/15 hover:text-foreground inline-block rounded-full border px-3 py-1 text-sm">
+							#{category}
+						</span>
+					))
+				}
+			</div>
+		</div>
+		<div
+			class="prose text-muted prose-headings:text-foreground relative mx-auto my-10 mb-20 overflow-visible max-sm:px-4 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
+		>
+			<Content />
+		</div>
+	</main>
+</Layout>
