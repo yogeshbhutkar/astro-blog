@@ -6,16 +6,16 @@ type Props = {
 };
 
 const { blog } = Astro.props;
+const { slug, title, publishedDate } = blog.data;
 ---
 
 <article
 	class="flex w-full items-center justify-between transition-opacity duration-150 ease-in-out group-hover:opacity-45 hover:opacity-100"
 >
-	<a
-		href={`/blogs/${blog.slug}`}
-		class="text-muted inline-block text-pretty"
-	>
-		<h2 class="max-sm:text-sm">{blog.data.title}</h2>
+	<a href={`/blogs/${slug}`} class="text-muted inline-block text-pretty">
+		<h2 class="max-sm:text-sm" set:html={title} />
 	</a>
-	<p class="text-muted text-sm">{blog.data.date}</p>
+	<p class="text-muted text-sm">
+		{publishedDate}
+	</p>
 </article>
