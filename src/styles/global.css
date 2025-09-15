@@ -39,3 +39,8 @@ h5,
 h6 {
 	font-family: "Inter", sans-serif;
 }
+
+.info-list > *:not(:last-child)::after {
+	content: "|";
+	color: #aaa;
+}

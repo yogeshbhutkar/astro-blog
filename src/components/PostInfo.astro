@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+interface Props {
+	author: CollectionEntry<"blogs">["data"]["author"];
+	publishedDate: CollectionEntry<"blogs">["data"]["publishedDate"];
+	wordCount: number;
+}
+
+const { author, publishedDate, wordCount } = Astro.props;
+const totalTimeToRead = Math.ceil(wordCount / 200);
+const totalTimeToSkim = Math.ceil(wordCount / 500);
+---
+
+<div
+	class="text-muted/75 info-list mt-1 flex flex-wrap items-center justify-center space-x-2 text-sm"
+>
+	<div class="flex items-center gap-1">
+		{
+			author.profileImage && (
+				<Image
+					src={author.profileImage.url}
+					alt={author.profileImage.alt}
+					width={author.profileImage.width}
+					height={author.profileImage.height}
+					class="inline-block h-6 w-6 rounded-full object-cover align-middle"
+				/>
+			)
+		}
+		{author.name ?? author.email}
+	</div>
+	<time datetime={publishedDate}>
+		Published on {publishedDate}
+	</time>
+	<p>
+		{totalTimeToSkim} min read ({totalTimeToRead} min read total)
+	</p>
+	<p>
+		{wordCount} words
+	</p>
+</div>
