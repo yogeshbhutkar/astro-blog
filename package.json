@@ -10,7 +10,6 @@
 	},
 	"dependencies": {
 		"@astrojs/sitemap": "^3.5.1",
-		"@payloadcms/richtext-lexical": "^3.55.1",
 		"@tailwindcss/vite": "^4.1.13",
 		"astro": "^5.13.7",
 		"prettier": "^3.6.2",

@@ -11,7 +11,7 @@ const { tags } = Astro.props;
 {
 	tags && (
 		<div class="mt-2 flex flex-wrap justify-center gap-2">
-			{tags.map(({ tag }) => (
+			{tags.map((tag) => (
 				<span class="text-muted/50 border-muted/20 hover:bg-muted/15 hover:text-foreground inline-block rounded-full border px-3 py-1 text-sm">
 					#{tag}
 				</span>

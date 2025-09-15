@@ -16,6 +16,8 @@
 	--color-background: #ffffff;
 	--color-foreground: #050505;
 	--color-muted: #0a0a0a;
+	--color-code: #24292e;
+	--color-code-text: #f6f8fa;
 }
 
 @layer theme {
@@ -24,6 +26,8 @@
 		--color-background: #050505;
 		--color-foreground: #fafafa;
 		--color-muted: #cacaca;
+		--color-code: #f6f8fa;
+		--color-code-text: #24292e;
 	}
 }
 
@@ -45,7 +49,10 @@ h6 {
 	color: #aaaaaa;
 }
 
-.payload-richtext pre > p {
-	margin-top: 0.125rem;
-	margin-bottom: 0.125rem;
+.prose p > code {
+	background-color: var(--color-code);
+	color: var(--color-code-text);
+	padding: 0.2rem 0.4rem;
+	margin: 0 0.2rem;
+	border-radius: 0.375rem;
 }

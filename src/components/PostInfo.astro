@@ -3,12 +3,13 @@ import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 
 interface Props {
+	avatar: CollectionEntry<"blogs">["data"]["avatar"];
 	author: CollectionEntry<"blogs">["data"]["author"];
 	publishedDate: CollectionEntry<"blogs">["data"]["publishedDate"];
 	wordCount: number;
 }
 
-const { author, publishedDate, wordCount } = Astro.props;
+const { avatar, author, publishedDate, wordCount } = Astro.props;
 const totalTimeToRead = Math.ceil(wordCount / 200);
 const totalTimeToSkim = Math.ceil(wordCount / 500);
 ---
@@ -18,17 +19,17 @@ const totalTimeToSkim = Math.ceil(wordCount / 500);
 >
 	<div class="flex items-center gap-1">
 		{
-			author.profileImage && (
+			avatar && (
 				<Image
-					src={author.profileImage.url}
-					alt={author.profileImage.alt}
-					width={author.profileImage.width}
-					height={author.profileImage.height}
+					src={avatar}
+					alt={`Avatar of ${author}`}
+					width={avatar.width}
+					height={avatar.height}
 					class="inline-block h-6 w-6 rounded-full object-cover align-middle"
 				/>
 			)
 		}
-		{author.name ?? author.email}
+		{author}
 	</div>
 	<time datetime={publishedDate}>
 		Published on {publishedDate}

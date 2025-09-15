@@ -11,7 +11,7 @@ export const getStaticPaths = async () => {
 	return blogs.map((blog) => {
 		return {
 			params: {
-				slug: blog.data.slug,
+				slug: blog.slug,
 			},
 			props: { blog },
 		};
@@ -23,23 +23,15 @@ type Props = {
 };
 
 const { blog } = Astro.props;
-const {
-	title,
-	excerpt,
-	content,
-	coverImage,
-	publishedDate,
-	tags,
-	author,
-} = blog.data;
+const { Content } = await blog.render();
 
-const wordCount = content
-	.replace(/<[^>]+>/g, "")
-	.trim()
-	.split(/\s+/).length;
+const { title, excerpt, coverImage, publishedDate, tags, author, avatar } =
+	blog.data;
+
+const wordCount = blog.body.split(/\s+/).length;
 ---
 
-<Layout title={title} description={excerpt} image={coverImage?.url}>
+<Layout title={title} description={excerpt} image={coverImage.src}>
 	<main transition:animate={slide({ duration: "0.2s" })} class="mx-auto">
 		<article>
 			<PostCoverImage coverImage={coverImage} />
@@ -52,6 +44,7 @@ const wordCount = content
 					{blog.data.title}
 				</h1>
 				<PostInfo
+					avatar={avatar}
 					author={author}
 					publishedDate={publishedDate}
 					wordCount={wordCount}
@@ -59,9 +52,10 @@ const wordCount = content
 				<PostTags tags={tags} />
 			</div>
 			<div
-				class="prose text-muted prose-headings:text-foreground relative mx-auto my-10 mb-20 overflow-visible max-sm:px-4 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
-				set:html={content}
-			/>
+				class="prose text-muted prose-headings:text-foreground prose-a:text-blue-400 relative mx-auto my-10 mb-20 overflow-visible max-sm:px-4 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
+			>
+				<Content />
+			</div>
 		</article>
 	</main>
 </Layout>
