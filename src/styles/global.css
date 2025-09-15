@@ -42,5 +42,10 @@ h6 {
 
 .info-list > *:not(:last-child)::after {
 	content: "|";
-	color: #aaa;
+	color: #aaaaaa;
+}
+
+.payload-richtext pre > p {
+	margin-top: 0.125rem;
+	margin-bottom: 0.125rem;
 }
