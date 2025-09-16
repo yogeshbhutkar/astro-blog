@@ -10,15 +10,15 @@ const { title, publishedDate } = blog.data;
 ---
 
 <article
-	class="flex w-full items-center justify-between transition-opacity duration-150 ease-in-out group-hover:opacity-45 hover:opacity-100"
+	class="flex w-full items-baseline justify-between transition-opacity duration-150 ease-in-out group-hover:opacity-45 hover:opacity-100"
 >
 	<a
-		href={`/blogs/${blog.slug}`}
+		href={`/blog/${blog.slug}`}
 		class="text-muted inline-block text-pretty"
 	>
 		<h2 class="max-sm:text-sm" set:html={title} />
 	</a>
-	<p class="text-muted text-sm">
+	<p class="text-muted text-sm whitespace-nowrap">
 		{publishedDate}
 	</p>
 </article>

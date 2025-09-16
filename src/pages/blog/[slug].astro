@@ -6,24 +6,33 @@ import PostTags from "@/components/PostTags.astro";
 import PostCoverImage from "@/components/PostCoverImage.astro";
 import PostInfo from "@/components/PostInfo.astro";
 import Comments from "@/components/Comments.astro";
+import type { MarkdownHeading } from "astro";
 
 export const getStaticPaths = async () => {
 	const blogs = await getCollection("blogs");
-	return blogs.map((blog) => {
+
+	const headings = await Promise.all(
+		blogs.map((entry) =>
+			entry.render().then(({ headings }) => headings),
+		),
+	);
+
+	return blogs.map((blog, index) => {
 		return {
 			params: {
 				slug: blog.slug,
 			},
-			props: { blog },
+			props: { blog, headings: headings[index] },
 		};
 	});
 };
 
 type Props = {
 	blog: CollectionEntry<"blogs">;
+	headings: MarkdownHeading[];
 };
 
-const { blog } = Astro.props;
+const { blog, headings } = Astro.props;
 const { Content } = await blog.render();
 
 const { title, excerpt, coverImage, publishedDate, tags, author, avatar } =
@@ -37,7 +46,7 @@ const wordCount = blog.body.split(/\s+/).length;
 		<article>
 			<PostCoverImage coverImage={coverImage} />
 			<div
-				class="mx-auto my-3 max-sm:px-4 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
+				class="mx-auto my-3 max-sm:w-sm sm:max-w-sm md:max-w-xl lg:max-w-3xl"
 			>
 				<h1
 					class="text-center text-xl font-semibold md:text-3xl lg:text-4xl"
@@ -53,7 +62,7 @@ const wordCount = blog.body.split(/\s+/).length;
 				<PostTags tags={tags} />
 			</div>
 			<div
-				class="prose text-muted prose-headings:text-foreground prose-a:text-blue-400 relative mx-auto my-10 mb-20 overflow-visible max-sm:px-4 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
+				class="prose text-muted prose-headings:text-foreground prose-a:text-blue-400 relative mx-auto my-10 mb-20 overflow-visible max-sm:w-sm sm:max-w-sm md:max-w-xl lg:max-w-3xl"
 			>
 				<Content />
 			</div>
