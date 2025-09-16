@@ -10,16 +10,16 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-    site: process.env.SITE_URL || 'https://localhost:4321',
-    vite: {
-        plugins: [tailwindcss()],
-        resolve: {
-            alias: {
-                '@': path.resolve('./src'),
-            }
-        }
-        },
-    integrations: [
+	site: process.env.SITE_URL || 'https://localhost:4321',
+	vite: {
+		plugins: [tailwindcss()],
+		resolve: {
+			alias: {
+				'@': path.resolve('./src'),
+			}
+		}
+	},
+	integrations: [
 		sitemap(),
 		mdx({
 			syntaxHighlight: 'shiki',

@@ -5,6 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import PostTags from "@/components/PostTags.astro";
 import PostCoverImage from "@/components/PostCoverImage.astro";
 import PostInfo from "@/components/PostInfo.astro";
+import Comments from "@/components/Comments.astro";
 
 export const getStaticPaths = async () => {
 	const blogs = await getCollection("blogs");
@@ -56,6 +57,7 @@ const wordCount = blog.body.split(/\s+/).length;
 			>
 				<Content />
 			</div>
+			<Comments />
 		</article>
 	</main>
 </Layout>

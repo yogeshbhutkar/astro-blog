@@ -1,0 +1,99 @@
+<script>
+	const getGiscusTheme = () => {
+		return localStorage.getItem("theme") === "dark" ||
+			document.body.classList.contains("dark")
+			? "noborder_dark"
+			: "noborder_light";
+	};
+
+	// Function to load the Giscus script.
+	const loadGiscus = () => {
+		// Avoid reloading the script if it already exists.
+		if (document.getElementById("giscus-script")) return;
+
+		// Create the Giscus script element.
+		const script = document.createElement("script");
+		script.id = "giscus-script";
+		script.src = import.meta.env.PUBLIC_GISCUS_CLIENT_SRC;
+		script.setAttribute(
+			"data-repo",
+			import.meta.env.PUBLIC_GISCUS_REPO,
+		);
+		script.setAttribute(
+			"data-repo-id",
+			import.meta.env.PUBLIC_GISCUS_REPO_ID,
+		);
+		script.setAttribute(
+			"data-category",
+			import.meta.env.PUBLIC_GISCUS_CATEGORY,
+		);
+		script.setAttribute(
+			"data-category-id",
+			import.meta.env.PUBLIC_GISCUS_CATEGORY_ID,
+		);
+		script.setAttribute("data-mapping", "url");
+		script.setAttribute("data-strict", "0");
+		script.setAttribute("data-reactions-enabled", "1");
+		script.setAttribute("data-emit-metadata", "0");
+		script.setAttribute("data-input-position", "top");
+		script.setAttribute("data-theme", getGiscusTheme());
+		script.setAttribute("data-lang", "en");
+		script.setAttribute("data-loading", "lazy");
+		script.crossOrigin = "anonymous";
+		script.async = true;
+
+		// Append the script to the Giscus container.
+		document.getElementById("giscusComments")?.appendChild(script);
+	};
+
+	// Function to update the Giscus theme dynamically.
+	const updateGiscusTheme = () => {
+		const theme = getGiscusTheme();
+		const iframe = document.querySelector(
+			"iframe.giscus-frame",
+		) as HTMLIFrameElement;
+
+		if (!iframe) {
+			return;
+		}
+
+		const themeMsg = { setConfig: { theme } };
+		iframe.contentWindow?.postMessage(
+			{ giscus: themeMsg },
+			import.meta.env.PUBLIC_GISCUS_APP,
+		);
+	};
+
+	// Initialize the Giscus script and set up listeners.
+	document.addEventListener("astro:page-load", () => {
+		loadGiscus();
+
+		// Watch for changes to the body class.
+		const observer = new MutationObserver(() => updateGiscusTheme());
+		observer.observe(document.body, {
+			attributes: true,
+			attributeFilter: ["class"],
+		});
+
+		// Listen for changes to localStorage.
+		window.addEventListener("storage", (event) => {
+			if (event.key !== "theme") {
+				return;
+			}
+
+			updateGiscusTheme();
+		});
+
+		// Clean up when navigating away.
+		document.addEventListener("astro:unmount", () => {
+			observer.disconnect();
+			window.removeEventListener("storage", updateGiscusTheme);
+		});
+	});
+</script>
+
+<div
+	id="giscusComments"
+	class="mx-auto mb-10 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
+>
+</div>
