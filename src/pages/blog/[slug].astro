@@ -7,6 +7,7 @@ import PostCoverImage from "@/components/PostCoverImage.astro";
 import PostInfo from "@/components/PostInfo.astro";
 import Comments from "@/components/Comments.astro";
 import type { MarkdownHeading } from "astro";
+import TableOfContents from "@/components/TableOfContents.astro";
 
 export const getStaticPaths = async () => {
 	const blogs = await getCollection("blogs");
@@ -62,11 +63,22 @@ const wordCount = blog.body.split(/\s+/).length;
 				<PostTags tags={tags} />
 			</div>
 			<div
-				class="prose text-muted prose-headings:text-foreground prose-a:text-blue-400 relative mx-auto my-10 mb-20 overflow-visible max-sm:w-sm sm:max-w-sm md:max-w-xl lg:max-w-3xl"
+				class="relative mx-auto my-10 grid max-w-7xl grid-cols-1 gap-2 xl:grid-cols-[1fr_minmax(auto,auto)_1fr]"
 			>
-				<Content />
+				{
+					headings.length > 0 && (
+						<TableOfContents headings={headings} />
+					)
+				}
+				<div>
+					<div
+						class="prose text-muted prose-headings:text-foreground prose-a:text-blue-400 relative mx-auto mb-20 overflow-visible px-2 max-sm:w-sm sm:max-w-sm sm:px-0 md:max-w-xl lg:max-w-3xl"
+					>
+						<Content />
+					</div>
+					<Comments />
+				</div>
 			</div>
-			<Comments />
 		</article>
 	</main>
 </Layout>
