@@ -43,14 +43,15 @@ import Sun from "@/icons/sun.astro";
 </script>
 
 <script>
+	const audio = new Audio("/sound/theme-switcher.mp3");
+
 	const handleToggleClick = () => {
 		const isDark =
 			document.body.classList.contains("dark") ||
-			localStorage.getItem("theme") === "dark"
-				? "dark"
-				: false;
+			localStorage.getItem("theme") === "dark";
 		document.body.classList.toggle("dark");
 		localStorage.setItem("theme", isDark ? "light" : "dark");
+		audio.play();
 	};
 
 	const attachEventListener = () =>
