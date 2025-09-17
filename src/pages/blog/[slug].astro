@@ -8,6 +8,7 @@ import PostInfo from "@/components/PostInfo.astro";
 import Comments from "@/components/Comments.astro";
 import type { MarkdownHeading } from "astro";
 import TableOfContents from "@/components/TableOfContents.astro";
+import ReadingIndicator from "@/components/ReadingIndicator.astro";
 
 export const getStaticPaths = async () => {
 	const blogs = await getCollection("blogs");
@@ -43,6 +44,7 @@ const wordCount = blog.body.split(/\s+/).length;
 ---
 
 <Layout title={title} description={excerpt} image={coverImage.src}>
+	<ReadingIndicator slot="reading-indicator" />
 	<main transition:animate={slide({ duration: "0.2s" })} class="mx-auto">
 		<article>
 			<PostCoverImage coverImage={coverImage} />

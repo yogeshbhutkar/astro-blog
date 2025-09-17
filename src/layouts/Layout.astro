@@ -30,6 +30,7 @@ const {
 		<title>{title}</title>
 	</head>
 	<body class="bg-background text-foreground mx-auto sm:w-full">
+		<slot name="reading-indicator" />
 		<Header />
 		<slot />
 	</body>
