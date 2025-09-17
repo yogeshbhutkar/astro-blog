@@ -43,7 +43,9 @@ import Sun from "@/icons/sun.astro";
 </script>
 
 <script>
-	const audio = new Audio("/sound/theme-switcher.mp3");
+	let audio: HTMLAudioElement | null = new Audio(
+		"/sound/theme-switcher.mp3",
+	);
 
 	const handleToggleClick = () => {
 		const isDark =
@@ -51,7 +53,7 @@ import Sun from "@/icons/sun.astro";
 			localStorage.getItem("theme") === "dark";
 		document.body.classList.toggle("dark");
 		localStorage.setItem("theme", isDark ? "light" : "dark");
-		audio.play();
+		audio?.play();
 	};
 
 	const attachEventListener = () =>
@@ -63,4 +65,16 @@ import Sun from "@/icons/sun.astro";
 
 	// For Astro View Transitions support
 	document.addEventListener("astro:after-swap", attachEventListener);
+
+	// Cleanup event listener on unload.
+	window.addEventListener("beforeunload", () => {
+		document
+			.getElementById("theme-toggle")
+			?.removeEventListener("click", handleToggleClick);
+
+		if (audio) {
+			audio.pause();
+			audio = null;
+		}
+	});
 </script>
