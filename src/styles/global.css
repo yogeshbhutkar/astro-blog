@@ -11,7 +11,19 @@
 	font-display: swap;
 }
 
+@font-face {
+	font-family: "Island Moments";
+	src: url("/fonts/island-moments.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
 @theme {
+	/* Font Families */
+	--font-cursive: "Island Moments", cursive;
+
 	/* Base Colors */
 	--color-background: #ffffff;
 	--color-foreground: #050505;
