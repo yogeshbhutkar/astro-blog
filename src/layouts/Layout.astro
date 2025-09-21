@@ -2,17 +2,22 @@
 import { ClientRouter } from "astro:transitions";
 import "@/styles/global.css";
 import Header from "@/components/Header.astro";
+import {
+	SITE_DESCRIPTION,
+	SITE_TITLE,
+	SITE_OG_IMAGE_PATH,
+} from "@/constants";
 
 interface Props {
-	title: string;
+	title?: string;
 	description?: string;
 	image?: string;
 }
 
 const {
-	title,
-	description = "Yogesh's personal blog",
-	image = "images/og-image.webp",
+	title = SITE_TITLE,
+	description = SITE_DESCRIPTION,
+	image = SITE_OG_IMAGE_PATH,
 } = Astro.props;
 ---
 
