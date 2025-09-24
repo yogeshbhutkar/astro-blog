@@ -45,7 +45,11 @@ const wordCount = blog.body.split(/\s+/).length;
 
 <Layout title={title} description={excerpt} image={coverImage.src}>
 	<ReadingIndicator slot="reading-indicator" />
-	<main transition:animate={slide({ duration: "0.4s" })} class="mx-auto">
+	<main
+		id="main-content"
+		transition:animate={slide({ duration: "0.4s" })}
+		class="mx-auto"
+	>
 		<article>
 			<PostCoverImage coverImage={coverImage} />
 			<div

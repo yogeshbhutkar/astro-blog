@@ -1,11 +1,15 @@
 ---
 import Logo from "@/icons/logo.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import SkipToContent from "./SkipToContent.astro";
+
+const isBlogPage = Astro.url.pathname.startsWith("/blog/");
 ---
 
 <header
 	class="bg-background/20 text-foreground/75 text-md sticky top-0 z-40 mb-10 w-full backdrop-blur-sm backdrop-filter"
 >
+	{isBlogPage && <SkipToContent slot="skip-to-content" />}
 	<nav
 		class="mx-auto flex h-16 items-center justify-between max-sm:px-4 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
 	>
