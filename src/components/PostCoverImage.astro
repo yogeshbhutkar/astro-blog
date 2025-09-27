@@ -12,8 +12,8 @@ const { coverImage } = Astro.props;
 <div class="flex w-full justify-center">
 	<Image
 		src={coverImage}
-		width={coverImage.width}
-		height={coverImage.height}
+		width={coverImage.width || 1024}
+		height={coverImage.height || 512}
 		alt={"Blog cover image"}
 		class="mb-4 aspect-[4/2] w-5xl max-w-full rounded-lg object-cover shadow-xl max-sm:w-sm"
 		fetchpriority="high"

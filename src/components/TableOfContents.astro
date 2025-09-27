@@ -12,11 +12,11 @@ const getMarginClass = (depth: number) => {
 		case 1:
 			return "ml-0";
 		case 2:
-			return "ml-2";
+			return "ml-0";
 		case 3:
 			return "ml-4";
 		default:
-			return "ml-6";
+			return "ml-8";
 	}
 };
 
@@ -32,12 +32,12 @@ const getTextSizeClass = (depth: number) => {
 ---
 
 <aside
-	class="xl:border-foreground/50 hidden xl:sticky xl:top-20 xl:block xl:h-fit xl:w-64 xl:overflow-y-auto xl:border-l-2 xl:px-6 xl:py-4"
+	class="xl:border-foreground/50 hidden xl:sticky xl:top-20 xl:block xl:h-fit xl:w-64 xl:overflow-y-auto xl:border-l-2 xl:px-3 xl:py-2"
 	aria-label="Table of contents"
 >
 	<nav>
-		<p class="mb-6 font-semibold">On this page</p>
-		<ul class="space-y-1 text-sm">
+		<p class="mb-4 font-normal">On this page</p>
+		<ul class="space-y-2 text-sm">
 			{
 				headings.map((heading) => (
 					<li

@@ -1,0 +1,86 @@
+---
+title: A Primer to Rendering Patterns
+author: yogeshbhutkar
+avatar: ./images/yogesh-bhutkar.webp
+tags: ["SSR", "CSR", "SSG", "ISR"]
+featured: false
+publishedDate: 2025-09-27
+coverImage: https://edbtlqkuviiqidqoobhg.supabase.co/storage/v1/object/public/payload-cms/media/a-primer-to-rendering-patterns.webp
+excerpt: Rendering patterns are essential for building efficient and maintainable web applications. This article explores common rendering patterns such as client-side rendering, server-side rendering, and static site generation, along with their pros and cons.
+---
+
+## What are rendering patterns?
+
+There are various strategies for rendering content. Some rely on server-side rendering to reduce client load, while others render directly on the client. But how do we determine where to use each approach? And can we even combine them? Let’s explore these questions in this blog.
+
+## Types of rendering patterns
+
+Effectively, there are four main rendering patterns:
+1. Client-Side Rendering (CSR)
+2. Server-Side Rendering (SSR)
+3. Static Site Generation (SSG)
+4. Incremental Static Regeneration (ISR)
+
+Each has its own advantages and disadvantages, and the choice of which to use depends on the specific needs of your application. Let's explore each of these patterns in detail.
+
+### Client-Side Rendering (CSR)
+
+![Client-Side Rendering](https://edbtlqkuviiqidqoobhg.supabase.co/storage/v1/object/public/payload-cms/media/client-side-rendering.webp)
+
+Client-Side Rendering is a pattern made popular by single-page applications (SPAs). In this approach, the server sends a minimal HTML shell to the client, and JavaScript running in the browser takes over to render the content dynamically. In short, the client's browser does most of the work.
+
+There are many libraries and frameworks that facilitate CSR, such as [React](https://react.dev/), [Angular](https://angular.dev/), and [Vue.js](https://vuejs.org/). These tools allow developers to create rich, interactive user interfaces that can update in real-time without requiring a full page reload.
+
+#### When to use CSR?
+
+CSR is ideal for applications that require a high level of interactivity and dynamic content updates. Examples include dashboards, and real-time collaboration tools. CSR can also be beneficial for applications that need to work offline or have complex client-side logic.
+
+#### Drawbacks of CSR
+
+As the initial HTML sent to the client is minimal, it can lead to slower initial load times and poor SEO performance. Search engines may struggle to index content that is rendered dynamically on the client side.
+
+### Server-Side Rendering (SSR)
+
+![Server-Side Rendering](https://edbtlqkuviiqidqoobhg.supabase.co/storage/v1/object/public/payload-cms/media/server-side-rendering.webp)
+
+Server-Side Rendering is a pattern where the server generates the complete HTML for a page and sends it to the client. This means that when a user requests a page, the server processes the request, fetches any necessary data, and renders the HTML before sending it to the browser. In short, the server does most of the work.
+
+SSR can be implemented using various frameworks and libraries, such as [Next.js](https://nextjs.org/) for React, [Nuxt.js](https://nuxt.com/) for Vue.js, and [Angular Universal](https://angular.io/guide/universal) for Angular.
+
+#### When to use SSR?
+
+SSR is ideal for applications that require fast initial load times and good SEO performance. Examples include e-commerce sites, blogs, and news websites. SSR can also be beneficial for applications that need to display dynamic content based on user authentication or other server-side logic.
+
+#### Drawbacks of SSR
+
+SSR can lead to increased server load and complexity, as the server must handle rendering for each request. This can result in slower response times during high traffic periods. Also, SSR may not be suitable for applications that require a high level of interactivity, as it can lead to a less responsive user experience.
+
+### Static Site Generation (SSG)
+
+![Static Site Generation](https://edbtlqkuviiqidqoobhg.supabase.co/storage/v1/object/public/payload-cms/media/static-site-generation.webp)
+
+Static Site Generation is a pattern where the server generates static HTML files for each page at build time. This means that when a user requests a page, the server simply serves the pre-generated HTML file, which can be delivered quickly and efficiently. In short, the server does all the work upfront.
+
+These static HTML files can be cached and served via a [Content Delivery Network (CDN)](https://aws.amazon.com/what-is/cdn/), resulting in fast load times and improved performance. SSG can be implemented using various frameworks and tools, such as [Astro](https://astro.build/), [Gatsby](https://www.gatsbyjs.com/), and [Hugo](https://gohugo.io/).
+
+#### When to use SSG?
+
+SSG is ideal for applications that have a lot of static content that doesn't change frequently. Examples include documentation sites, portfolios, and marketing websites. SSG can also be beneficial for applications that need to be highly performant and scalable, as static files can be served quickly and efficiently.
+
+#### Drawbacks of SSG
+
+SSG can lead to longer build times, especially for large sites with many pages. Additionally, SSG may not be suitable for applications that require dynamic content or frequent updates, as the static files must be regenerated and redeployed to reflect changes.
+
+### Incremental Static Regeneration (ISR)
+
+Incremental Static Regeneration is a hybrid pattern that combines the benefits of SSG and SSR. In this approach, static HTML files are generated at build time, but they can also be updated incrementally on the server as needed. This means that when a user requests a page, the server can serve the pre-generated static HTML file, but it can also regenerate the page on-the-fly if the content has changed. In short, the server does most of the work upfront but can also handle dynamic updates by updating the static content without rebuilding the site.
+
+Frameworks like [Next.js](https://nextjs.org/docs/pages/guides/incremental-static-regeneration) support ISR, allowing developers to specify which pages should be regenerated and how frequently.
+
+### Final Thoughts 🤔
+
+While choosing the rendering pattern might seem daunting, it's essential to consider the specific needs of your application. Factors such as performance, SEO, interactivity, and scalability should guide your decision. In many cases, a combination of these patterns can be employed to achieve the best results.
+
+Frameworks like Next.js and Astro make it easier to implement these patterns. For example, Next.js allows you to use SSR for dynamic pages while leveraging SSG for static content along with CSR for interactive components. Astro, on the other hand, focuses on SSG but allows you to integrate client-side JavaScript as needed. Astro also supports reactive frameworks like React, Vue, and Svelte, enabling you to build highly interactive components that can be rendered on the client side.
+
+Astro also supports [Islands Architecture](https://docs.astro.build/en/concepts/islands/), which allows you to build static sites with interactive components that are only hydrated when needed. More on this in the upcoming blog 🚀.
