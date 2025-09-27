@@ -41,9 +41,12 @@ const { title, excerpt, coverImage, publishedDate, tags, author, avatar } =
 	blog.data;
 
 const wordCount = blog.body.split(/\s+/).length;
+
+const coverImageURL =
+	typeof coverImage === "string" ? coverImage : coverImage?.src;
 ---
 
-<Layout title={title} description={excerpt} image={coverImage.src}>
+<Layout title={title} description={excerpt} image={coverImageURL}>
 	<ReadingIndicator slot="reading-indicator" />
 	<main
 		id="main-content"
