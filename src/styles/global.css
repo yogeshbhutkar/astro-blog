@@ -61,7 +61,10 @@ h6 {
 	color: #aaaaaa;
 }
 
-.prose p > code {
+.prose p > code,
+.prose li > code,
+.prose td > code,
+.prose strong > code {
 	background-color: var(--color-code);
 	color: var(--color-code-text);
 	padding: 0.2rem 0.4rem;
