@@ -39,37 +39,29 @@ const {
 		<link
 			rel="icon"
 			type="image/png"
-			href={new URL("/favicon-96x96.png", Astro.site)}
+			href="/favicon-96x96.png"
 			sizes="96x96"
 		/>
-		<link
-			rel="icon"
-			type="image/svg+xml"
-			href={new URL("/favicon.svg", Astro.site)}
-		/>
-		<link
-			rel="shortcut icon"
-			href={new URL("/favicon.ico", Astro.site)}
-		/>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="shortcut icon" href="/favicon.ico" />
 		<link
 			rel="apple-touch-icon"
 			sizes="180x180"
-			href={new URL("/apple-touch-icon.png", Astro.site)}
+			href="/apple-touch-icon.png"
 		/>
 		<meta
 			name="apple-mobile-web-app-title"
 			content="Yogesh's Personal Blog"
 		/>
-		<link
-			rel="manifest"
-			href={new URL("/site.webmanifest", Astro.site)}
-		/>
+		<link rel="manifest" href="/site.webmanifest" />
 
 		<link
 			rel="canonical"
 			href={new URL(Astro.url.pathname, Astro.site)}
 		/>
 		<meta property="og:image" content={image} />
+
+		<!-- SITEMAP AND RSS -->
 		<link
 			rel="sitemap"
 			href={new URL("/sitemap-index.xml", Astro.site)}
