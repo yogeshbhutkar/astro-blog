@@ -1,4 +1,5 @@
 ---
+import SquigglyArrow from "@/icons/squiggly-arrow.astro";
 import type { CollectionEntry } from "astro:content";
 
 type Props = {
@@ -12,15 +13,23 @@ const { title, publishedDate } = blog.data;
 <article
 	class="group/article flex w-full items-baseline justify-between transition-opacity duration-150 ease-in-out group-hover:opacity-45 hover:opacity-100"
 >
-	<a
-		href={`/blog/${blog.slug}`}
-		class="text-muted inline-block text-pretty"
-	>
-		<h2
-			class="decoration-blue-400 decoration-wavy decoration-2 underline-offset-2 group-hover/article:underline max-sm:text-sm dark:decoration-blue-300"
-			set:html={title}
+	<div class="flex items-center space-x-2">
+		<a
+			href={`/blog/${blog.slug}`}
+			class="text-muted inline-block text-pretty"
+		>
+			<h2
+				class="decoration-blue-400 decoration-wavy decoration-2 underline-offset-2 group-hover/article:underline max-sm:text-sm dark:decoration-blue-300"
+				set:html={title}
+			/>
+		</a>
+
+		<SquigglyArrow
+			class="-translate-y-1 transform text-blue-400 opacity-0 transition-all duration-700 group-hover/article:translate-y-0 group-hover/article:animate-bounce group-hover/article:opacity-100 dark:text-blue-300"
+			style="will-change: transform, opacity;"
 		/>
-	</a>
+	</div>
+
 	<p class="text-muted text-sm whitespace-nowrap">
 		{publishedDate}
 	</p>
