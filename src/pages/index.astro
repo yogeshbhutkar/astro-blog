@@ -14,7 +14,7 @@ const blogs = (await getCollection("blogs")).sort(
 	<main
 		class="mx-auto my-5 flex flex-col max-sm:px-4 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
 	>
-		<h1 class="mb-4 text-left text-3xl max-sm:text-2xl">Blogs</h1>
+		<h1 class="mb-3 text-left text-xl max-sm:text-lg">Blogs</h1>
 		<PostList blogs={blogs} />
 	</main>
 </Layout>
