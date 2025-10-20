@@ -82,3 +82,8 @@ export const PROJECTS = [
 		repo: "https://github.com/yogeshbhutkar/node-reverse-proxy",
 	},
 ];
+
+export const SOCIALS = {
+	github: "https://github.com/yogeshbhutkar",
+	linked_in: "https://linkedin.com/in/yogeshbhutkar/",
+};

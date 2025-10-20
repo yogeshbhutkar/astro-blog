@@ -34,24 +34,24 @@ const { detailed = false } = Astro.props;
 				<h1 class="max-sm:text-md mb-6 text-left text-lg font-semibold">
 					Work
 				</h1>
-				<div class="text-muted flex flex-col gap-8">
+				<div class="text-muted flex flex-col gap-12">
 					{WORK_EXPERIENCE.map((work) => (
-						<div class="flex flex-col gap-4">
+						<div class="flex flex-col gap-3">
 							<div>
 								<div class="flex items-center gap-1">
 									<a
 										href={work.url}
-										class="text-foreground decoration-blue-400 decoration-2 underline-offset-3 hover:underline max-sm:underline dark:decoration-blue-300"
+										class="text-foreground font-semibold decoration-blue-400 decoration-wavy decoration-2 underline-offset-2 hover:underline max-sm:underline dark:decoration-blue-300"
 										target="_blank"
 									>
 										{work.company}
 									</a>
 									<ExternalLink height={16} width={16} />
 								</div>
-								<h2 class="mb-1 text-sm">
+								<h2 class="text-sm font-medium">
 									{work.position}
 								</h2>
-								<p class="mb-1 text-sm">
+								<p class="text-sm">
 									{work.startDate} - {work.endDate}
 								</p>
 							</div>
