@@ -19,7 +19,10 @@ const blogs = (await getCollection("blogs"))
 
 <section>
 	<div class="mb-3 flex items-center justify-between">
-		<h1 class="max-sm:text-md mb-3 text-left text-lg font-semibold">
+		<h1
+			class="max-sm:text-md mb-3 text-left text-lg font-semibold"
+			transition:name="blogs-home"
+		>
 			Blogs
 		</h1>
 		{

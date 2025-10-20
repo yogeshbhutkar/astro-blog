@@ -60,8 +60,9 @@ const coverImageURL =
 			>
 				<h1
 					class="text-center text-xl font-semibold md:text-3xl lg:text-4xl"
+					transition:name={blog.slug}
 				>
-					{blog.data.title}
+					{title}
 				</h1>
 				<PostInfo
 					avatar={avatar}
