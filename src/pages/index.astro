@@ -1,20 +1,18 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import PostList from "@/components/PostList.astro";
-import { getCollection } from "astro:content";
-
-const blogs = (await getCollection("blogs")).sort(
-	(a, b) =>
-		new Date(b.data.publishedDate).valueOf() -
-		new Date(a.data.publishedDate).valueOf(),
-);
+import Blogs from "@/components/home/Blogs.astro";
+import Work from "@/components/home/Work.astro";
+import Projects from "@/components/home/Projects.astro";
+import About from "@/components/home/About.astro";
 ---
 
-<Layout>
+<Layout title="Home | Yogesh Bhutkar">
 	<main
-		class="mx-auto my-5 flex flex-col max-sm:px-4 sm:max-w-sm md:max-w-xl lg:max-w-3xl"
+		class="mx-auto my-5 flex flex-col gap-7 max-sm:px-6 sm:max-w-sm md:max-w-xl lg:max-w-2xl"
 	>
-		<h1 class="mb-3 text-left text-xl max-sm:text-lg">Blogs</h1>
-		<PostList blogs={blogs} />
+		<About />
+		<Work />
+		<Blogs count={3} />
+		<Projects />
 	</main>
 </Layout>

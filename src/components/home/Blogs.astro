@@ -1,0 +1,37 @@
+---
+import PostList from "../PostList.astro";
+import { getCollection } from "astro:content";
+
+interface Props {
+	count?: number;
+}
+
+const { count } = Astro.props;
+
+const blogs = (await getCollection("blogs"))
+	.sort(
+		(a, b) =>
+			new Date(b.data.publishedDate).valueOf() -
+			new Date(a.data.publishedDate).valueOf(),
+	)
+	.slice(0, count || undefined);
+---
+
+<section>
+	<div class="mb-3 flex items-center justify-between">
+		<h1 class="max-sm:text-md mb-3 text-left text-lg font-semibold">
+			Blogs
+		</h1>
+		{
+			count && (
+				<a
+					href="/blog"
+					class="text-sm decoration-blue-400 decoration-wavy decoration-2 underline-offset-4 hover:underline max-sm:underline dark:decoration-blue-300"
+				>
+					See all blogs
+				</a>
+			)
+		}
+	</div>
+	<PostList blogs={blogs} />
+</section>
