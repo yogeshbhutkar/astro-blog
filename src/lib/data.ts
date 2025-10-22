@@ -68,6 +68,12 @@ export const PROJECTS = [
 		repo: "https://github.com/yogeshbhutkar/kiri",
 	},
 	{
+		name: "Minilink 🔗 - A simple link shortner",
+		description: "A lightning-fast URL shortener built with Next.js, Tailwind, and Bun ⚡ Short links. Instant redirects. Zero bloat.",
+		url: "https://minilink.yogeshbhutkar.com/",
+		repo: "https://github.com/yogeshbhutkar/minilink",
+	},
+	{
 		name: "ChatOn",
 		description:
 			"A chat application built with Flutter and Firebase for real-time messaging.",
