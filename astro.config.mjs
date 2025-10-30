@@ -8,27 +8,28 @@ import sitemap from '@astrojs/sitemap';
 
 import mdx from '@astrojs/mdx';
 
+import react from '@astrojs/react';
+import markdoc from '@astrojs/markdoc';
+import keystatic from '@keystatic/astro';
+
 // https://astro.build/config
 export default defineConfig({
-	site: process.env.SITE_URL || 'https://localhost:4321',
-	vite: {
-		plugins: [tailwindcss()],
-		resolve: {
-			alias: {
-				'@': path.resolve('./src'),
-			}
-		}
-	},
-	integrations: [
-		sitemap(),
-		mdx({
-			syntaxHighlight: 'shiki',
-			shikiConfig: {
-				themes: {
-					light: 'catppuccin-latte',
-					dark: 'tokyo-night',
-				},
-			}
-		})
-	],
+    site: process.env.SITE_URL || 'https://localhost:4321',
+    vite: {
+        plugins: [tailwindcss()],
+        resolve: {
+            alias: {
+                '@': path.resolve('./src'),
+            }
+        }
+    },
+    integrations: [sitemap(), mdx({
+        syntaxHighlight: 'shiki',
+        shikiConfig: {
+            themes: {
+                light: 'catppuccin-latte',
+                dark: 'tokyo-night',
+            },
+        }
+		}), react(), markdoc(), keystatic()],
 });
