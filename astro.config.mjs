@@ -5,11 +5,8 @@ import tailwindcss from "@tailwindcss/vite";
 import path from 'path'
 
 import sitemap from '@astrojs/sitemap';
-
 import mdx from '@astrojs/mdx';
-
 import react from '@astrojs/react';
-import markdoc from '@astrojs/markdoc';
 import keystatic from '@keystatic/astro';
 
 // https://astro.build/config
@@ -31,5 +28,5 @@ export default defineConfig({
                 dark: 'tokyo-night',
             },
         }
-		}), react(), markdoc(), keystatic()],
+		}), react(), keystatic()],
 });
