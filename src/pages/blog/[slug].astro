@@ -40,7 +40,7 @@ const { Content } = await blog.render();
 const { title, excerpt, coverImage, publishedDate, tags, author, avatar } =
 	blog.data;
 
-const wordCount = blog.body.split(/\s+/).length;
+const wordCount = blog.body?.split(/\s+/).length;
 
 const coverImageURL =
 	typeof coverImage === "string" ? coverImage : coverImage?.src;
@@ -76,7 +76,7 @@ const coverImageURL =
 				class="relative mx-auto my-10 grid max-w-7xl grid-cols-1 gap-2 xl:grid-cols-[1fr_minmax(auto,auto)_1fr]"
 			>
 				<TableOfContents headings={headings} />
-				<div>
+				<div class="min-w-3xl">
 					<div
 						class="prose text-muted prose-headings:text-foreground prose-a:text-blue-400 prose-img:rounded-lg relative mx-auto mb-20 overflow-visible px-2 text-justify max-sm:w-sm sm:max-w-sm sm:px-0 md:max-w-xl lg:max-w-3xl"
 					>
