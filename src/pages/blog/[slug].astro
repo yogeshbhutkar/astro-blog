@@ -55,11 +55,9 @@ const coverImageURL =
 	>
 		<article>
 			<PostCoverImage coverImage={coverImage} />
-			<div
-				class="mx-auto my-3 max-sm:w-sm sm:max-w-sm md:max-w-xl lg:max-w-3xl"
-			>
+			<div class="mx-auto my-3 w-[95%] md:max-w-xl lg:max-w-3xl">
 				<h1
-					class="text-center text-xl font-semibold md:text-3xl lg:text-4xl"
+					class="text-center text-xl font-semibold sm:text-3xl lg:text-4xl"
 					transition:name={blog.slug}
 				>
 					{title}
@@ -78,7 +76,7 @@ const coverImageURL =
 				<TableOfContents headings={headings} />
 				<div class="md:min-w-3xl">
 					<div
-						class="prose text-muted prose-headings:text-foreground prose-a:text-blue-400 prose-img:rounded-lg relative mx-auto mb-20 overflow-visible px-2 text-justify max-sm:w-sm sm:max-w-sm sm:px-0 md:max-w-xl lg:max-w-3xl"
+						class="prose text-muted prose-headings:text-foreground prose-a:text-blue-400 prose-img:rounded-lg prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-base prose-h5:text-sm relative mx-auto mb-20 w-[95%] overflow-visible px-2 text-justify sm:px-0 md:max-w-xl lg:max-w-3xl"
 					>
 						<Content />
 					</div>
