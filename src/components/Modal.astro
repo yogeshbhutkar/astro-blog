@@ -84,23 +84,34 @@ const { id } = Astro.props;
 </dialog>
 
 <script define:vars={{ id }}>
-	const dialog = document.getElementById(id);
-	const openButton = dialog?.previousElementSibling;
-	openButton?.addEventListener("click", () => {
-		dialog?.showModal();
-	});
+	function setupModal() {
+		const dialog = document.getElementById(id);
+		const openButton = dialog?.previousElementSibling;
 
-	// Close the modal when clicking outside the dialog content.
-	dialog?.addEventListener("click", (event) => {
-		const rect = dialog.getBoundingClientRect();
-		const isInDialog =
-			event.clientX >= rect.left &&
-			event.clientX <= rect.right &&
-			event.clientY >= rect.top &&
-			event.clientY <= rect.bottom;
+		if (!dialog || !openButton) return;
 
-		if (!isInDialog) {
-			dialog.close();
-		}
-	});
+		openButton.addEventListener("click", () => {
+			dialog.showModal();
+		});
+
+		// Close the modal when clicking outside the dialog content
+		dialog.addEventListener("click", (event) => {
+			const rect = dialog.getBoundingClientRect();
+			const isInDialog =
+				event.clientX >= rect.left &&
+				event.clientX <= rect.right &&
+				event.clientY >= rect.top &&
+				event.clientY <= rect.bottom;
+
+			if (!isInDialog) {
+				dialog.close();
+			}
+		});
+	}
+
+	// Run on initial load.
+	setupModal();
+
+	// Re-run after every view transition.
+	document.addEventListener("astro:after-swap", setupModal);
 </script>
