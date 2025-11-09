@@ -4,6 +4,7 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import path from 'path'
 
+import pagefind from "astro-pagefind";
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
@@ -32,7 +33,7 @@ export default defineConfig({
               dark: 'tokyo-night',
           },
       }
-      }), react(), keystatic()],
+      }), react(), keystatic(), pagefind()],
 
   adapter: vercel(),
 });

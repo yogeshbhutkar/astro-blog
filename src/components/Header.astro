@@ -5,6 +5,7 @@ import SkipToContent from "./SkipToContent.astro";
 import { SOCIALS } from "@/lib/data.ts";
 import Github from "@/icons/github.astro";
 import LinkedIn from "@/icons/linked-in.astro";
+import SearchModal from "./search/SearchModal.astro";
 
 const isBlogPage = Astro.url.pathname.startsWith("/blog/");
 ---
@@ -42,6 +43,8 @@ const isBlogPage = Astro.url.pathname.startsWith("/blog/");
 			>
 				<LinkedIn height={16} width={16} />
 			</a>
+			<span class="pointer-events-none select-none">/</span>
+			<SearchModal />
 			<ThemeToggle />
 		</div>
 	</nav>
