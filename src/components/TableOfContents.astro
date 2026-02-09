@@ -45,7 +45,8 @@ const getTextSizeClass = (depth: number) => {
 					>
 						<a
 							href={`#${heading.slug}`}
-							class="text-muted hover:text-primary"
+							class="text-muted hover:text-primary toc-link"
+							data-target={heading.slug}
 						>
 							{heading.text}
 						</a>
@@ -55,3 +56,38 @@ const getTextSizeClass = (depth: number) => {
 		</ul>
 	</nav>
 </aside>
+
+<script>
+	const setupTocLinks = () => {
+		const links = document.querySelectorAll(".toc-link");
+
+		links.forEach((link) => {
+			link.addEventListener("click", (e) => {
+				e.preventDefault();
+
+				const target = (e.currentTarget as HTMLAnchorElement)
+					.dataset.target;
+				if (!target) return;
+
+				const el = document.getElementById(target);
+				if (!el) return;
+
+				const offset = 80;
+				const top =
+					el.getBoundingClientRect().top +
+					window.scrollY -
+					offset;
+				window.scrollTo({
+					top,
+					behavior: "smooth",
+				});
+			});
+		});
+	};
+
+	// Run on initial page load.
+	setupTocLinks();
+
+	// Re-run on every page navigation with View Transition.
+	document.addEventListener("astro:page-load", setupTocLinks);
+</script>
