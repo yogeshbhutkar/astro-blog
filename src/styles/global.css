@@ -83,3 +83,28 @@ h6 {
 		text-decoration: var(--shiki-dark-text-decoration) !important;
 	}
 }
+
+/* Scrollbar styles */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #525252 transparent;
+}
+
+/* Webkit scrollbar (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #525252;
+	border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #737373;
+}
