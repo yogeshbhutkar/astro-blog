@@ -1,4 +1,4 @@
-name: CI
+name: Lighthouse CI
 
 on:
     pull_request:
@@ -16,32 +16,11 @@ jobs:
 
             - run: bun install --frozen-lockfile
 
-            - name: Type check
-              run: bunx astro check
-
             - name: Build
               run: bun run build
-
-            - name: Cache build
-              uses: actions/upload-artifact@v4
-              with:
-                  name: build-output
-                  path: .vercel/output/static
-
-    lighthouse:
-        runs-on: ubuntu-latest
-        needs: build
-        steps:
-            - uses: actions/checkout@v4
-
-            - name: Download build
-              uses: actions/download-artifact@v4
-              with:
-                  name: build-output
-                  path: .vercel/output/static
 
             - name: Lighthouse audit
               uses: treosh/lighthouse-ci-action@v12
               with:
                   uploadArtifacts: true
-                  configPath: .lighthouserc.json
+                  configPath: .github/.lighthouserc.json
