@@ -34,9 +34,12 @@ const { detailed = false } = Astro.props;
 				<h1 class="max-sm:text-md mb-6 text-left text-lg font-semibold">
 					Work
 				</h1>
-				<div class="text-muted flex flex-col gap-12">
-					{WORK_EXPERIENCE.map((work) => (
-						<div class="flex flex-col gap-3">
+				<div class="text-muted stagger-container flex flex-col gap-12">
+					{WORK_EXPERIENCE.map((work, idx) => (
+						<div
+							class="flex flex-col gap-3"
+							style={`--stagger-index: ${idx}`}
+						>
 							<div>
 								<div class="flex items-center gap-1">
 									<a

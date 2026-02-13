@@ -4,14 +4,17 @@ import type { CollectionEntry } from "astro:content";
 
 type Props = {
 	blog: CollectionEntry<"blogs">;
+	className?: string;
+	style?: string;
 };
 
-const { blog } = Astro.props;
+const { blog, className = "", style } = Astro.props;
 const { title, publishedDate } = blog.data;
 ---
 
 <article
-	class="group/article flex w-full items-baseline justify-between transition-opacity duration-150 ease-in-out group-hover:opacity-45 hover:opacity-100"
+	class={`group/article flex w-full items-baseline justify-between transition-opacity duration-150 ease-in-out group-hover:opacity-45 hover:opacity-100 ${className}`}
+	style={style}
 >
 	<div class="flex items-center space-x-2">
 		<a

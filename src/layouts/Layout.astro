@@ -122,3 +122,23 @@ const {
 		<slot />
 	</body>
 </html>
+
+<style>
+	@keyframes stagger-in {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	:global(.stagger-container > *) {
+		opacity: 0;
+		animation: stagger-in 0.3s ease-out forwards;
+		animation-delay: calc(var(--stagger-index) * 0.15s);
+		will-change: opacity, transform;
+	}
+</style>

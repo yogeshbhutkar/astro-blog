@@ -9,6 +9,10 @@ type Props = {
 const { blogs } = Astro.props;
 ---
 
-<div class="group space-y-2">
-	{blogs.map((blog) => <Post blog={blog} />)}
+<div class="group stagger-container space-y-2">
+	{
+		blogs.map((blog, idx) => (
+			<Post blog={blog} style={`--stagger-index:${idx}`} />
+		))
+	}
 </div>
