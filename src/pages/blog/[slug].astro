@@ -30,7 +30,7 @@ export const getStaticPaths = async () => {
 };
 
 type Props = {
-	blog: CollectionEntry<"blogs">;
+	blog: CollectionEntry;
 	headings: MarkdownHeading[];
 };
 
@@ -48,17 +48,12 @@ const coverImageURL =
 
 <Layout title={title} description={excerpt} image={coverImageURL}>
 	<ReadingIndicator slot="reading-indicator" />
-	<main
-		id="main-content"
-		transition:animate={slide({ duration: "0.3s" })}
-		class="mx-auto"
-	>
+	<main id="main-content" class="mx-auto">
 		<article>
 			<PostCoverImage coverImage={coverImage} />
 			<div class="mx-auto my-3 w-[95%] md:max-w-xl lg:max-w-3xl">
 				<h1
 					class="text-center text-xl font-semibold sm:text-3xl lg:text-4xl"
-					transition:name={blog.slug}
 				>
 					{title}
 				</h1>

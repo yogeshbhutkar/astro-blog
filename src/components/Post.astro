@@ -3,7 +3,7 @@ import SquigglyArrow from "@/icons/squiggly-arrow.astro";
 import type { CollectionEntry } from "astro:content";
 
 type Props = {
-	blog: CollectionEntry<"blogs">;
+	blog: CollectionEntry;
 };
 
 const { blog } = Astro.props;
@@ -21,7 +21,6 @@ const { title, publishedDate } = blog.data;
 			<h2
 				class="decoration-blue-400 decoration-wavy decoration-2 underline-offset-2 group-hover/article:underline dark:decoration-blue-300"
 				set:html={title}
-				transition:name={blog.slug}
 			/>
 		</a>
 
