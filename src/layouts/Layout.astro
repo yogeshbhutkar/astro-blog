@@ -137,7 +137,7 @@ const {
 
 	:global(.stagger-container > *) {
 		opacity: 0;
-		animation: stagger-in 0.3s ease-out forwards;
+		animation: stagger-in 0.3s ease-in-out forwards;
 		animation-delay: calc(var(--stagger-index) * 0.15s);
 		will-change: opacity, transform;
 	}

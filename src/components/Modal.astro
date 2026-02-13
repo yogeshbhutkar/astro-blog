@@ -63,6 +63,36 @@ const { id } = Astro.props;
 		left: 0px;
 		background: rgba(0, 0, 0, 0.65);
 	}
+
+	@keyframes dialog-in {
+        from {
+            opacity: 0;
+			filter: blur(15px);
+        }
+        to {
+            opacity: 1;
+			filter: blur(0px);
+        }
+    }
+
+    @keyframes backdrop-in {
+        from {
+            opacity: 0;
+			filter: blur(15px);
+        }
+        to {
+            opacity: 1;
+			filter: blur(0px);
+        }
+    }
+
+    .open\:animate-in[open] {
+        animation: dialog-in 0.2s ease-in-out forwards;
+    }
+
+    .open\:animate-in[open]::backdrop {
+        animation: backdrop-in 0.2s ease-in-out forwards;
+    }
 </style>
 
 <button>
@@ -71,7 +101,7 @@ const { id } = Astro.props;
 
 <dialog
 	id={id}
-	class="bg-background border-muted/30 max-h-[50%] min-h-[50%] w-[90%] border p-5 sm:w-[70%] md:w-[60%] lg:w-[50%] xl:w-[30%] xl:min-w-[600px]"
+	class="bg-background border-muted/30 max-h-[50%] min-h-[50%] w-[90%] border p-5 sm:w-[70%] md:w-[60%] lg:w-[50%] xl:w-[30%] xl:min-w-[600px] backdrop:bg-background/50 backdrop:backdrop-blur-sm open:animate-in"
 >
 	<div>
 		<slot name="main" />
