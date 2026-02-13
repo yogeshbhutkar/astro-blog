@@ -58,7 +58,7 @@ const { detailed = false } = Astro.props;
 									{work.startDate} - {work.endDate}
 								</p>
 							</div>
-							<ul class="font-light max-sm:text-sm">
+							<ul class="flex flex-col gap-1 font-light max-sm:text-sm">
 								{work.responsibilities.map((item) => (
 									<li class="star-list mb-1">{item}</li>
 								))}
