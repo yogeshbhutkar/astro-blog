@@ -3,7 +3,7 @@ import SquigglyArrow from "@/icons/squiggly-arrow.astro";
 import type { CollectionEntry } from "astro:content";
 
 type Props = {
-	blog: CollectionEntry;
+	blog: CollectionEntry<"blogs">;
 };
 
 const { blog } = Astro.props;

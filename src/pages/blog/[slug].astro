@@ -30,7 +30,7 @@ export const getStaticPaths = async () => {
 };
 
 type Props = {
-	blog: CollectionEntry;
+	blog: CollectionEntry<"blogs">;
 	headings: MarkdownHeading[];
 };
 
