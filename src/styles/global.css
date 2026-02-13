@@ -102,7 +102,7 @@ h6 {
 
 ::-webkit-scrollbar-thumb {
 	background: #525252;
-	border-radius: 9999px;
+	border-radius: theme(--radius-4xl);
 }
 
 ::-webkit-scrollbar-thumb:hover {
