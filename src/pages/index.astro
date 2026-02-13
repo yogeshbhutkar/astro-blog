@@ -8,7 +8,7 @@ import About from "@/components/home/About.astro";
 
 <Layout title="Home | Yogesh Bhutkar">
 	<main
-		class="mx-auto my-5 flex flex-col gap-16 max-sm:px-6 sm:max-w-sm md:max-w-xl lg:max-w-2xl"
+		class="stagger-container mx-auto my-5 flex flex-col gap-16 max-sm:px-6 sm:max-w-sm md:max-w-xl lg:max-w-2xl"
 	>
 		<About />
 		<Work />
@@ -16,3 +16,23 @@ import About from "@/components/home/About.astro";
 		<Projects />
 	</main>
 </Layout>
+
+<style is:global>
+	@keyframes stagger-in {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.stagger-container > * {
+		opacity: 0;
+		animation: stagger-in 0.3s ease-out forwards;
+		animation-delay: calc(var(--stagger-index) * 0.15s);
+		will-change: opacity, transform;
+	}
+</style>
