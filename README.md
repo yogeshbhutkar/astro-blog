@@ -1,4 +1,4 @@
-# Astro Blog
+# Dev Blog
 
 A minimal, performant, and beautifully animated personal blog built with [Astro](https://astro.build), [Tailwind CSS v4](https://tailwindcss.com), and [Keystatic CMS](https://keystatic.com).
 
