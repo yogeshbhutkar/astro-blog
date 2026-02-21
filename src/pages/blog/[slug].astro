@@ -8,6 +8,7 @@ import Comments from "@/components/Comments.astro";
 import type { MarkdownHeading } from "astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 import ReadingIndicator from "@/components/ReadingIndicator.astro";
+import { slide } from "astro:transitions";
 
 export const getStaticPaths = async () => {
 	const blogs = await getCollection("blogs");
@@ -47,7 +48,11 @@ const coverImageURL =
 
 <Layout title={title} description={excerpt} image={coverImageURL}>
 	<ReadingIndicator slot="reading-indicator" />
-	<main id="main-content" class="mx-auto">
+	<main
+		id="main-content"
+		class="mx-auto"
+		transition:animate={slide({ duration: "0.3s" })}
+	>
 		<article>
 			<PostCoverImage coverImage={coverImage} />
 			<div class="mx-auto my-3 w-[95%] md:max-w-xl lg:max-w-3xl">
