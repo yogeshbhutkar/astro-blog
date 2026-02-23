@@ -1,0 +1,233 @@
+---
+title: A Primer to building AI Agents in Go with Google ADK
+author: yogeshbhutkar
+avatar: ./images/yogesh-bhutkar.webp
+tags: ["Go", "Google ADK", "AI Agents"]
+featured: false
+publishedDate: 2026-02-23
+coverImage: https://edbtlqkuviiqidqoobhg.supabase.co/storage/v1/object/public/payload-cms/media/a-primer-to-building-ai-agents-with-go.webp
+excerpt: Building AI agents in Go has become increasingly accessible with the introduction of Google's Agent Development Kit (ADK). This article provides a comprehensive guide to getting started with building AI agents in Go using Google ADK, covering the basics of setting up your environment, creating your first agent, and exploring advanced features.
+---
+
+## What's Google ADK?
+
+As per Google, "Agent Development Kit (ADK) is a flexible and modular framework for developing and deploying AI agents. While optimized for Gemini and the Google ecosystem, ADK is model-agnostic, deployment-agnostic, and is built for compatibility with other frameworks." You can read more about it in the [official documentation](https://google.github.io/adk-docs/).
+
+Long story short: it’s a seriously powerful way to build AI agents — and it doesn’t make you commit to one model like it’s a long-term relationship. It’s completely model-agnostic, so you can plug in whatever model you like. (But, there's a catch!)
+
+## What are AI agents?
+
+Again, as per ADK's official docs, "An Agent is a self-contained execution unit designed to act autonomously to achieve specific goals. Agents can perform tasks, interact with users, utilize external tools, and coordinate with other agents."
+
+In simpler terms, an AI agent is a software entity that can perform tasks on its own, interact with users, and use tools to achieve specific goals. It’s like having a digital assistant that can do things for you without needing constant supervision.
+
+## Building an AI agent in Go with Google ADK
+
+In this section, we'll go through the foundational steps to build an AI agent in Go using Google ADK. We'll understand agents better, and the way to create them with custom tools.
+
+### Step 1: We'll need a model
+
+To build an AI agent, a language model is essential to provide its core functionality. While Google ADK is model-agnostic, it currently lacks first-party support for models like OpenAI's or Anthropic's.
+
+Creating a Gemini model in ADK is straightforward. Here’s how you can do it:
+
+```go
+import (
+    "google.golang.org/adk/agent/llmagent"
+    "google.golang.org/adk/model/gemini"
+    "google.golang.org/genai"
+)
+
+modelFlash, err := gemini.NewModel(ctx, "gemini-2.0-flash", &genai.ClientConfig{})
+if err != nil {
+    log.Fatalf("failed to create model: %v", err)
+}
+```
+
+If you require a model other than Gemini, you'll likely need to implement a custom solution. For instance, to use OpenAI's model, you can leverage a publicly available Go package, as demonstrated below:
+
+```go
+import adkopenai "github.com/huytd/adk-openai-go"
+
+model := adkopenai.NewModel("gpt-5-mini", &adkopenai.Config{
+	APIKey: apiKey,
+})
+```
+
+Refer to the [ADK documentation](https://google.github.io/adk-docs/agents/models/google-gemini/#get-started) for more details on creating and using models.
+
+### Step 2: Create an agent
+
+Once you have your model set up, you can create an agent. Here’s a simple example of how to create an agent in Go using Google ADK:
+
+```go
+agentGeminiFlash, err := llmagent.New(llmagent.Config{
+    Model:       modelFlash,
+    Name:        "super_handsome_agent",
+    Instruction: "You are a fast and helpful Gemini assistant.",
+})
+
+if err != nil {
+    log.Fatalf("failed to create agent: %v", err)
+}
+```
+
+### Step 3: Add tools to your agent (optional)
+
+Tools are a powerful way to extend the capabilities of your AI agent. They allow your agent to perform specific tasks or access external resources. Here’s an example of a tool that can read the contents of a file in your file system:
+
+```go
+package tools
+
+import (
+	"log"
+	"os"
+	"path/filepath"
+
+	"google.golang.org/adk/tool"
+	"google.golang.org/adk/tool/functiontool"
+)
+
+type readFileArgs struct {
+	FilePath string `json:"file_path" jsonschema:"The absolute path of the file to read."`
+}
+
+type readFileResult struct {
+	Status  string `json:"status"`
+	Content string `json:"content"`
+}
+
+// ReadFile is a tool function that reads the content of a file given its absolute path
+// and returns the content as a string.
+func ReadFile(ctx tool.Context, args readFileArgs) (*readFileResult, error) {
+	basepath, err := os.Getwd()
+	if err != nil {
+		log.Printf("🚨 Error getting current working directory: %v", err)
+		return &readFileResult{
+			Status:  "error",
+			Content: "",
+		}, err
+	}
+
+	relativePath, err := filepath.Rel(basepath, args.FilePath)
+	if err != nil {
+		log.Printf("🚨 Error getting relative path for file %s: %v", args.FilePath, err)
+		return &readFileResult{
+			Status:  "error",
+			Content: "",
+		}, err
+	}
+
+	content, err := os.ReadFile(args.FilePath)
+	if err != nil {
+		log.Printf("🚨 Error reading file %s: %v", relativePath, err)
+		return &readFileResult{
+			Status:  "error",
+			Content: "",
+		}, err
+	}
+
+	log.Printf("📁 Successfully read file %s", relativePath)
+	return &readFileResult{
+		Status:  "success",
+		Content: string(content),
+	}, nil
+}
+
+// ReadFileTool returns a tool that can be used to read the content of a file given its absolute path.
+func ReadFileTool() (tool.Tool, error) {
+	return functiontool.New(
+		functiontool.Config{
+			Name:        "read_file",
+			Description: "Reads the content of a file given its absolute path and returns the content as a string",
+		},
+		ReadFile,
+	)
+}
+```
+
+When creating tools, it's important to follow best practices to ensure they are effective and reliable. Use descriptive names that clearly convey the tool's purpose, and provide detailed descriptions to make their functionality easy to understand. Incorporate status indicators to signal success or failure, enabling the agent to make informed decisions based on the tool's output. Additionally, handle errors gracefully to ensure the agent can recover from unexpected situations and maintain smooth operation.
+
+You can refer to the [ADK documentation](https://google.github.io/adk-docs/tools-custom/#what-is-a-tool) to understand more about tools and how to create custom tools for your agents.
+
+### Step 4: Add the tool to your agent
+
+Once you have your tool created, you can add it to your agent like this:
+
+```go
+read_file_tool, err := tools.ReadFileTool()
+if err != nil {
+	log.Fatalf("🚨 Error creating read_file tool: %v", err)
+}
+
+agentGeminiFlash, err := llmagent.New(llmagent.Config{
+    Model:       modelFlash,
+    Name:        "super_handsome_agent",
+    Instruction: "You are a fast and helpful Gemini assistant.",
+	Tools: []tool.Tool{
+		read_file_tool,
+	},
+})
+```
+
+### Step 5: Setup a runner and execute the agent
+
+To execute your agent, you need to set up a runner. The runner is responsible for managing the execution of the agent and its interactions with tools. Here's how you can set up a runner and execute your agent:
+
+```go
+// Create a session service to manage sessions for your agent
+sessionService := session.InMemoryService()
+runner, err := runner.New(runner.Config{
+	AppName:        "readme_generator",
+	Agent:          agent,
+	SessionService: sessionService,
+})
+if err != nil {
+	log.Fatal(err)
+}
+
+// Create a new session for the agent
+session, err := sessionService.Create(ctx, &session.CreateRequest{
+	AppName: "readme_generator",
+	UserID:  defaultUserId,
+})
+if err != nil {
+	log.Fatal(err)
+}
+
+// Run the agent with the initial prompt
+run(ctx, runner, session.Session.ID(), prompts.ReadmeGeneratorInitialPrompt)
+```
+
+Here's how the `run` function looks like:
+
+```go
+func run(ctx context.Context, r *runner.Runner, sessionID string, prompt string) {
+	events := r.Run(
+		ctx,
+		defaultUserId,
+		sessionID,
+		genai.NewContentFromText(prompt, genai.RoleUser),
+		agent.RunConfig{
+			StreamingMode: agent.StreamingModeNone,
+		},
+	)
+
+	// Check and log any errors that occurred during the run.
+	for _, err := range events {
+		if err != nil {
+			// Handle errors.
+		}
+	}
+}
+```
+
+## Final thoughts
+
+Building AI agents in Go with Google ADK has been a truly enjoyable experience. The framework streamlines many complex tasks, making development significantly more efficient. Inspired by this, I developed a simple CLI tool that utilizes an agent and custom tools to generate a README file for a project. You can explore it [here](https://github.com/yogeshbhutkar/readme-gen).
+
+That said, I can’t help but wish for broader support for models from other providers, like OpenAI and Anthropic, directly out of the box. While it would make development much easier, it seems unlikely to happen anytime soon. Additionally, there are several features available in other languages that are missing in Go. For instance, the Python implementation of Google ADK supports LiteLLM, but this functionality isn’t available in Go. While there are third-party Go ports for LangChain, such as this [one](https://github.com/tmc/langchaingo), their agent implementations are still quite limited too.
+
+At the time of writing this article, Python remains my preferred language for building AI agents, especially when paired with tools like LangChain, LangGraph, and their ecosystems. However, Google ADK is an excellent choice if you’re working within the Gemini ecosystem. It offers a wide range of [built-in tools](https://google.github.io/adk-docs/integrations/) that make it incredibly powerful.
+
+I’d love to hear your thoughts on this article! If you have any questions or suggestions, feel free to share them in the comments.
