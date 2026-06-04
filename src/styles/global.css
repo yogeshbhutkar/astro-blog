@@ -1,17 +1,14 @@
 @import "tailwindcss";
+@import "./font.css";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@font-face {
-	font-family: "Sentient-Variable";
-	src: url("/fonts/Sentient-Variable.woff2") format("woff2");
-	font-weight: 200 700;
-	font-display: swap;
-	font-style: normal;
-}
-
 @theme {
+	/* Fonts */
+	--font-heading: "Playfair Display", serif;
+	--font-body: "Sentient-Variable", serif;
+
 	/* Base Colors */
 	--color-background: #ffffff;
 	--color-foreground: #050505;
@@ -35,19 +32,6 @@
 
 html {
 	scrollbar-gutter: stable;
-}
-
-body {
-	font-family: "Sentient-Variable", serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: "Sentient-Variable", sans-serif;
 }
 
 .info-list > *:not(:last-child)::after {
