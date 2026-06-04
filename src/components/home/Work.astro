@@ -14,8 +14,8 @@ const { detailed = false } = Astro.props;
 	{
 		!detailed && (
 			<>
-				<div class="mb-3 flex items-center justify-between">
-					<h1 class="max-sm:text-md text-left font-medium">
+				<div class="flex items-center justify-between">
+					<h1 class="max-sm:text-md font-heading text-md text-left">
 						Work
 					</h1>
 					<a
@@ -34,7 +34,7 @@ const { detailed = false } = Astro.props;
 	{
 		detailed && (
 			<>
-				<h1 class="max-sm:text-md mb-6 text-left text-lg font-semibold">
+				<h1 class="max-sm:text-md font-heading mb-6 text-left text-lg">
 					Work
 				</h1>
 				<div class="text-muted stagger-container flex flex-col gap-12">

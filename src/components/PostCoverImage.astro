@@ -14,7 +14,7 @@ const { coverImage } = Astro.props;
 
 const commonImageProps = {
 	alt: "Blog cover image",
-	class: "mb-4 aspect-[4/2] w-5xl max-w-full rounded-lg object-cover shadow-xl max-sm:w-sm",
+	class: "mb-4 aspect-[4/2] w-5xl max-w-full rounded-lg object-cover shadow-xl dark:shadow-2xl max-sm:w-sm shadow-muted/50 dark:shadow-neutral-800 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)]",
 	fetchpriority: "high" as const,
 	loading: "eager" as const,
 };

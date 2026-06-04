@@ -18,11 +18,11 @@ const blogs = (await getCollection("blogs"))
 	.slice(0, count || undefined);
 ---
 
-<section>
+<section class="flex flex-col gap-2">
 	{
 		count ? (
-			<div class="mb-3 flex items-center justify-between">
-				<h1 class="max-sm:text-md mb-1 text-left font-medium">
+			<div class="flex items-center justify-between">
+				<h1 class="max-sm:text-md font-heading text-md text-left">
 					Writings
 				</h1>
 				<a
@@ -33,8 +33,8 @@ const blogs = (await getCollection("blogs"))
 				</a>
 			</div>
 		) : (
-			<div class="mb-3 flex items-center justify-between">
-				<h1 class="max-sm:text-md mb-1 text-center font-medium">
+			<div class="flex items-center justify-between">
+				<h1 class="max-sm:text-md font-heading text-md text-center">
 					All Writings
 				</h1>
 			</div>
