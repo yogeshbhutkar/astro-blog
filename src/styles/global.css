@@ -21,9 +21,9 @@
 @layer theme {
 	.dark {
 		/* Base Colors */
-		--color-background: #050505;
+		--color-background: #0d0d0d;
 		--color-foreground: #fafafa;
-		--color-muted: #cacaca;
+		--color-muted: #c2c2c2;
 		--color-code: #24292e;
 		--color-code-text: #f6f8fa;
 		--color-border: #4b5563;
